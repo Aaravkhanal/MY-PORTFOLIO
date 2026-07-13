@@ -5,7 +5,7 @@ Welcome to the source code for my personal portfolio website.
 This project is a high-performance, cinematic, and interactive portfolio designed to showcase my work in AI Engineering, Machine Learning, and Full-Stack Development. It is built from scratch with modern web technologies and optimized for a seamless user experience.
 
 ## 🚀 Live Demo
-You can view the live portfolio here: [aaravkhanal.com](https://aaravkhanal.com) *(Add actual domain when deployed)*
+You can view the live portfolio here: [aaravkhanal-portfolio.vercel.app](https://aaravkhanal-portfolio.vercel.app)
 
 ## 🛠️ Tech Stack
 
