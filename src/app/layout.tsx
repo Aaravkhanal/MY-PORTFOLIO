@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aarav Khanal | AI Engineer",
-  description: "Portfolio of Aarav Khanal - AI Engineer, Machine Learning Engineer, and Full Stack AI Developer.",
+  title: "Aarav Khanal | AI & Full-Stack Developer",
+  description: "Explore Aarav Khanal’s AI products, language-model research, developer tools, and full-stack projects.",
 };
 
 export default function RootLayout({

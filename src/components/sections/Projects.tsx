@@ -1,296 +1,226 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FaGithub, FaChevronDown } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
+import { FaGithub } from "react-icons/fa";
+import { FiArrowUpRight, FiChevronDown } from "react-icons/fi";
 import Image from "next/image";
 
-const projects = [
+type Category = "AI & Products" | "Research & ML" | "CLI & Developer Tools" | "Apps & Experiments";
+type Project = {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  tech: string[];
+  github: string;
+  image?: string;
+  accent: string;
+  category: Category;
+};
+
+const projects: Project[] = [
   {
-    id: 0,
-    title: "ProjectMind AI",
-    subtitle: "Production-Grade Multi-Agent AI Engineering Platform",
-    description: `ProjectMind AI transforms any software project into a self-learning development workspace. Instead of relying on a single AI model, it automatically discovers your environment, securely connects to available AI providers, and intelligently routes every task to the most suitable model.
-
-Built with a privacy-first BYOK architecture, API keys never leave your machine. At its core is the Repository Brain — a persistent memory engine that continuously learns from code reviews, bug fixes, and architectural decisions.
-
-LangGraph-powered multi-agent orchestration enables specialized agents for architecture, security, and code quality to work in parallel before a synthesizer combines findings into a single prioritized review.`,
-    highlights: [
-      "🚀 Zero-configuration environment discovery",
-      "🧠 Persistent Repository Brain with long-term memory",
-      "🤖 Multi-Agent AI collaboration using LangGraph",
-      "🔒 Privacy-first BYOK with encrypted local key storage",
-      "💰 Built-in token tracking & cost optimization",
-      "🌐 Support for 15+ AI providers",
-    ],
-    tech: ["Next.js", "Python", "FastAPI", "LangGraph", "LiteLLM", "SQLite", "Langfuse"],
-    github: "https://github.com/Aaravkhanal/ProjectMind-AI",
-    image: "/projects/projectmind.png",
-    accent: "from-blue-600 to-purple-600",
-    tag: "Featured",
+    id: "understandvideo-ai", title: "UnderstandVideo", subtitle: "Grounded video understanding workspace",
+    description: "A focused workspace for exploring video through searchable transcripts, scene navigation, and timestamp-grounded answers. The interface keeps answers connected to moments in the source video so users can verify context instead of relying on a black-box summary.",
+    highlights: ["Searchable transcripts and scene navigation", "Timestamp-grounded question answering", "Python and PyTorch application"], tech: ["Python", "PyTorch", "Video AI"], github: "https://github.com/Aaravkhanal/understandvideo-ai", category: "AI & Products", accent: "from-cyan-500 to-blue-600",
   },
   {
-    id: 1,
-    title: "Jubidate",
-    subtitle: "Strategic Intelligence OS",
-    description: `Jubidate transforms traditional chatbot interactions into structured, multi-agent strategic reasoning. Users define a strategic objective and assign AI models to roles — Pro Advocate, Con Advocate, Judge, and Auditor.
-
-These agents engage in live multi-turn debates through WebSocket streaming, with arguments evolving before a Judge model generates a comprehensive strategic report highlighting the winning perspective, evidence quality, and logical gaps.`,
-    highlights: [
-      "🤖 Multi-agent AI orchestration with dynamic role assignment",
-      "⚡ Real-time WebSocket streaming for live collaboration",
-      "🧠 Parallel reasoning across multiple LLMs",
-      "📊 Evidence quality scoring & reasoning transparency",
-      "🏛️ AI Debate, Voting, Reflection & Sequential Pipelines",
-      "🔗 Provider-agnostic: NVIDIA NIM, Gemini, Groq, OpenRouter",
-    ],
-    tech: ["Next.js 15", "React 19", "FastAPI", "WebSockets", "LiteLLM", "SQLite", "NVIDIA NIM"],
-    github: "https://github.com/Aaravkhanal/Jubidate_ai",
-    image: "/projects/jubidate.png",
-    accent: "from-purple-600 to-pink-600",
-    tag: "AI Orchestration",
+    id: "projectmind", title: "ProjectMind AI", subtitle: "Multi-agent code review and repository intelligence",
+    description: "An AI-powered development workspace that analyzes repositories, builds persistent project context, and coordinates specialized reviews across code quality, security, and architecture. Its BYOK design keeps provider credentials local while supporting multiple model providers.",
+    highlights: ["Persistent repository knowledge", "Parallel specialist code reviews", "Provider-agnostic model routing"], tech: ["Python", "FastAPI", "LangGraph", "LiteLLM"], github: "https://github.com/Aaravkhanal/ProjectMind-AI", image: "/projects/projectmind.png", category: "AI & Products", accent: "from-blue-600 to-purple-600",
   },
   {
-    id: 2,
-    title: "AUЯA",
-    subtitle: "Bespoke Digital Atelier",
-    description: `AUЯA reimagines online shopping by combining personalized styling, real-time fashion discovery, and Virtual Try-On (VTON) technology. A digital representation of the user is generated using biometric inputs, then the platform retrieves trending fashion via Pinterest API and leverages the IDM-VTON diffusion model for realistic try-on results.
-
-AUЯA features a conversational AI stylist capable of curating personalized outfits and recommending complete looks for different occasions.`,
-    highlights: [
-      "👗 AI Virtual Try-On using IDM-VTON diffusion model",
-      "🧬 Personalized avatar via biometric user data",
-      "📌 Real-time fashion discovery through Pinterest API",
-      "🤖 Conversational AI stylist for outfit recommendations",
-      "✨ High-fidelity garment rendering with fabric preservation",
-      "📱 Premium responsive UI with luxury animations",
-    ],
-    tech: ["Next.js", "React", "Framer Motion", "Node.js", "Express.js", "Hugging Face IDM-VTON", "Pinterest API"],
-    github: "https://github.com/Aaravkhanal/fashion_ai",
-    image: "/projects/aura.png",
-    accent: "from-amber-500 to-rose-600",
-    tag: "AI + Fashion",
+    id: "jubidate", title: "Jubidate", subtitle: "Multi-agent strategic intelligence",
+    description: "A platform for structured AI reasoning where models take roles such as advocate, critic, judge, and auditor. It supports live debate and other workflows, then turns the discussion into a strategic report with evidence and reasoning made easier to inspect.",
+    highlights: ["Role-based multi-agent simulations", "Live WebSocket interaction and voice features", "Debate, voting, reflection, and sequential workflows"], tech: ["Python", "FastAPI", "Next.js", "WebSockets"], github: "https://github.com/Aaravkhanal/Jubidate_ai", image: "/projects/jubidate.png", category: "AI & Products", accent: "from-purple-600 to-pink-600",
   },
   {
-    id: 3,
-    title: "NeuralForge",
-    subtitle: "Intelligent End-to-End ML Orchestration",
-    description: `NeuralForge automates the complete ML lifecycle — from data preprocessing and feature engineering to model training, explainability, and containerized deployment. Specialized AI agents collaborate as Data Scientists, ML Engineers, MLOps Engineers, and DevOps Experts.
-
-Users upload raw datasets, get automatic cleaning, train multiple models via AutoML, and receive fully deployable FastAPI + Docker packages — all in a few clicks. The Explainable AI Playground lets users interpret predictions using SHAP, LIME, and natural-language explanations.`,
-    highlights: [
-      "🤖 Multi-agent orchestration (10 specialized ML agents)",
-      "🔬 Automated data cleaning & feature engineering",
-      "⚙️ Intelligent AutoML with hyperparameter optimization",
-      "🔍 Explainable AI: SHAP, LIME, Decision Paths",
-      "📦 One-click export: ONNX, Joblib, PMML, Docker",
-      "📊 Comprehensive JSON, HTML, PDF pipeline reports",
-    ],
-    tech: ["Next.js", "FastAPI", "LangGraph", "Scikit-Learn", "XGBoost", "SHAP", "Docker"],
-    github: "https://github.com/Aaravkhanal/NEURALFORGEAI",
-    image: "/projects/neuralforge.png",
-    accent: "from-teal-500 to-cyan-600",
-    tag: "MLOps",
+    id: "aura", title: "AUЯA", subtitle: "AI fashion discovery and virtual try-on",
+    description: "A fashion technology experience combining personalized styling, trend discovery, and virtual try-on. The product explores digital-twin creation and AI-assisted outfit recommendations alongside a polished shopping interface.",
+    highlights: ["Virtual try-on and digital-twin concepts", "Fashion discovery and personalized styling", "Responsive, animation-rich shopping experience"], tech: ["Next.js", "Node.js", "AI vision", "Virtual try-on"], github: "https://github.com/Aaravkhanal/fashion_ai", image: "/projects/aura.png", category: "AI & Products", accent: "from-amber-500 to-rose-600",
+  },
+  {
+    id: "neuralforge", title: "NeuralForge AI", subtitle: "End-to-end machine learning automation",
+    description: "An ML automation platform designed to take a dataset through preparation, training, evaluation, explainability, and deployment. The goal is to make a repeatable model-building workflow accessible through one product.",
+    highlights: ["Automated data preparation and model training", "Explainability with SHAP and LIME", "Export-oriented deployment workflow"], tech: ["TypeScript", "FastAPI", "Scikit-learn", "Docker"], github: "https://github.com/Aaravkhanal/NEURALFORGEAI", image: "/projects/neuralforge.png", category: "AI & Products", accent: "from-teal-500 to-cyan-600",
+  },
+  {
+    id: "frameflow", title: "FrameFlow AI", subtitle: "From visual references to frontend code",
+    description: "A code-generation tool that turns screenshots, Figma designs, URLs, and screen recordings into frontend starting points. It combines visual input, asset extraction, and multiple models to speed up interface implementation.",
+    highlights: ["Accepts screenshots, Figma files, URLs, and recordings", "Automated asset extraction", "Targets multiple frontend frameworks"], tech: ["Python", "TypeScript", "AI code generation"], github: "https://github.com/Aaravkhanal/Frameflow-ai", category: "AI & Products", accent: "from-orange-500 to-pink-600",
+  },
+  {
+    id: "nexora", title: "Nexora Intelligence", subtitle: "Company research and strategic analysis",
+    description: "An AI company-intelligence workspace that gathers and organizes business research into source-backed views. It supports competitor analysis, SWOT and financial insights, interactive dashboards, and follow-up questions over a persistent knowledge base.",
+    highlights: ["Company and competitor research", "Source-backed analysis and dashboards", "RAG assistant for follow-up questions"], tech: ["Python", "RAG", "Multi-agent AI"], github: "https://github.com/Aaravkhanal/NEXORA-AI", category: "AI & Products", accent: "from-indigo-500 to-violet-600",
+  },
+  {
+    id: "vibe-ai", title: "Vibe-AI", subtitle: "Website performance monitoring and optimization",
+    description: "A website health platform that runs Lighthouse scans across routes, tracks Core Web Vitals, and helps teams spot performance regressions. The repository describes both a local CLI and a cloud dashboard experience.",
+    highlights: ["Route discovery and concurrent Lighthouse audits", "CrUX and real-world performance signals", "Local CLI and cloud product workflows"], tech: ["JavaScript", "Lighthouse", "Puppeteer", "Vue"], github: "https://github.com/Aaravkhanal/VIBE-AI", category: "AI & Products", accent: "from-lime-500 to-emerald-600",
+  },
+  {
+    id: "vibe-shield", title: "VIBE SHIELD", subtitle: "Autonomous application security and quality scanner",
+    description: "A scanner for AI-assisted applications that crawls an app, generates checks, and examines security, business logic, API flows, and AI endpoints. Findings are grouped into correlated attack paths and an actionable report.",
+    highlights: ["Security and functional testing", "Prompt-injection and AI abuse checks", "Attack-chain correlation and reporting"], tech: ["JavaScript", "Application security", "AI testing"], github: "https://github.com/Aaravkhanal/VIBE-SHIELD", category: "AI & Products", accent: "from-rose-500 to-orange-600",
+  },
+  {
+    id: "medexplain", title: "MedExplain AI", subtitle: "Plain-language explanations for medical reports",
+    description: "A web application that extracts text from uploaded clinical reports and explains findings in more approachable language. It is designed to help people understand terminology and results before discussing them with a clinician.",
+    highlights: ["PDF and image report input", "OCR-assisted text extraction", "Structured, patient-friendly explanations"], tech: ["TypeScript", "OCR", "Generative AI"], github: "https://github.com/Aaravkhanal/medicalreportanalyzer", category: "AI & Products", accent: "from-sky-500 to-teal-600",
+  },
+  {
+    id: "zaika", title: "Zaika AI", subtitle: "Personal culinary companion",
+    description: "An AI-assisted cooking and recipe experience that helps people discover meals and adapt ideas to their preferences, mood, and favorite cuisines. The product is built around a conversational sous-chef approach.",
+    highlights: ["Personalized recipe discovery", "Conversational cooking guidance", "Modern full-stack recipe experience"], tech: ["Next.js", "TypeScript", "Prisma", "AI"], github: "https://github.com/Aaravkhanal/Zaika-ai", category: "AI & Products", accent: "from-orange-400 to-amber-600",
+  },
+  {
+    id: "emergency-ai", title: "Emergency Accident Detection", subtitle: "Computer vision for faster emergency response",
+    description: "A prototype that detects road accidents in images, estimates severity, and can trigger SMS alerts to an emergency contact. The workflow links visual detection to a severity engine and notification step.",
+    highlights: ["YOLO-based accident detection", "Severity scoring from detection signals", "SMS notification workflow"], tech: ["Python", "Computer vision", "YOLO", "SMS"], github: "https://github.com/Aaravkhanal/emergency-ai-platform", category: "AI & Products", accent: "from-red-500 to-orange-600",
+  },
+  {
+    id: "canary-study", title: "Canary Memorization Study", subtitle: "Measuring memorization and recombination in language models",
+    description: "An experimental study of whether exposure to recurring narrative elements changes recall or human-rated recombination in generated stories, and how results vary by model architecture. The repository separates extraction, copying diagnostics, and blinded human judgments rather than treating lexical diversity as creativity.",
+    highlights: ["Controlled planted-canary exposure methodology", "Matched model-size and architecture comparisons", "Separate memorization and human-judgment measures"], tech: ["Python", "Language models", "Experimental design"], github: "https://github.com/Aaravkhanal/canary-memorization-study", category: "Research & ML", accent: "from-fuchsia-500 to-purple-600",
+  },
+  {
+    id: "my-llm", title: "AARAV-LLM", subtitle: "A small language model and training stack built from scratch",
+    description: "A decoder-only language model trained from random initialization, together with its tokenizer, data pipeline, trainer, evaluation tools, fine-tuning, terminal chat, HTTP API, and web interface. The project runs locally without calling an external model service.",
+    highlights: ["End-to-end model training stack", "Local inference and fine-tuning", "Terminal, API, and web chat interfaces"], tech: ["Python", "PyTorch", "Language models"], github: "https://github.com/Aaravkhanal/MY-LLM", category: "Research & ML", accent: "from-violet-500 to-blue-600",
+  },
+  {
+    id: "waste-segregation", title: "Smart Waste Segregation", subtitle: "Transfer learning for waste classification",
+    description: "A computer-vision project that fine-tunes an image classifier to sort waste into categories and support recycling workflows. The repository documents image input, prediction confidence, and a transfer-learning approach.",
+    highlights: ["Transfer learning for image classification", "Waste-category predictions with confidence", "Recycling-focused applied ML"], tech: ["Python", "TensorFlow", "Keras", "Computer vision"], github: "https://github.com/Aaravkhanal/Smart-Waste-Segregation-System", category: "Research & ML", accent: "from-green-500 to-lime-600",
+  },
+  {
+    id: "codexa", title: "CODEXA", subtitle: "Terminal-native AI coding agent",
+    description: "An open-source coding agent built for the command line, with PLAN and BUILD modes, streaming model responses, persistent terminal sessions, local key handling, codebase intelligence, and MCP integrations.",
+    highlights: ["Plan and build workflows in the terminal", "Codebase context with CodexaLens", "MCP integrations and persistent sessions"], tech: ["TypeScript", "Node.js", "MCP", "CLI"], github: "https://github.com/Aaravkhanal/CODEXA", category: "CLI & Developer Tools", accent: "from-cyan-500 to-indigo-600",
+  },
+  {
+    id: "gitown", title: "GITOWN", subtitle: "An independent home for code",
+    description: "An early-stage code-hosting platform with a Next.js interface, Go API, PostgreSQL metadata, and native Git repository storage. Its current implementation supports repository creation, Git pushes, pull requests, diffs, merges, and pulling changes locally.",
+    highlights: ["Native Git repository storage", "Pull requests, diffs, and merges", "Development alpha with documented feature boundaries"], tech: ["Go", "Next.js", "PostgreSQL", "Git"], github: "https://github.com/Aaravkhanal/GITOWN", category: "CLI & Developer Tools", accent: "from-slate-400 to-cyan-600",
+  },
+  {
+    id: "homebrew-tap", title: "CODEXA Homebrew Tap", subtitle: "macOS package distribution",
+    description: "A Homebrew tap repository containing the CODEXA formula, making the terminal coding agent installable through the familiar macOS package manager.",
+    highlights: ["Homebrew formula for CODEXA", "Separate release and installation workflow"], tech: ["Ruby", "Homebrew", "CLI distribution"], github: "https://github.com/Aaravkhanal/homebrew-tap", category: "CLI & Developer Tools", accent: "from-amber-600 to-orange-500",
+  },
+  {
+    id: "qr-app", title: "QR Scanner & Reader", subtitle: "Ad-free Android scanner and generator",
+    description: "A native Android QR and barcode utility with QR generation, scanning, history, and share or save actions. It uses Jetpack Compose and supports dynamic light and dark themes.",
+    highlights: ["Scan barcodes and QR codes", "Generate QR codes for common contact and network types", "History, sharing, and Android-native UI"], tech: ["Kotlin", "Android", "Jetpack Compose"], github: "https://github.com/Aaravkhanal/qr-app", category: "Apps & Experiments", accent: "from-emerald-500 to-cyan-600",
+  },
+  {
+    id: "bmsce-web", title: "BMSCE Web", subtitle: "Community web project",
+    description: "A collaborative web project in the BMSCE community. The public repository currently provides limited project detail, so this entry links directly to the source for the implementation and context.",
+    highlights: ["Collaborative web development", "Source and project history on GitHub"], tech: ["JavaScript", "Web"], github: "https://github.com/Aaravkhanal/bmsce_web1", category: "Apps & Experiments", accent: "from-blue-500 to-indigo-600",
   },
 ];
+
+const categories: Array<"All work" | Category> = ["All work", "AI & Products", "Research & ML", "CLI & Developer Tools", "Apps & Experiments"];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
-  const [activeProject, setActiveProject] = useState<number | null>(null);
+  const [category, setCategory] = useState<(typeof categories)[number]>("All work");
+  const [activeProject, setActiveProject] = useState<string | null>(null);
+  const visibleProjects = category === "All work" ? projects : projects.filter((project) => project.category === category);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-
-    if (titleRef.current) {
-      gsap.fromTo(
-        titleRef.current,
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            end: "top 40%",
-            scrub: 1,
-          },
-        }
-      );
-    }
+    const context = gsap.context(() => {
+      if (!titleRef.current) return;
+      gsap.fromTo(titleRef.current, { y: 45, opacity: 0 }, {
+        y: 0, opacity: 1, ease: "power3.out",
+        scrollTrigger: { trigger: sectionRef.current, start: "top 82%", end: "top 45%", scrub: 1 },
+      });
+    }, sectionRef);
+    return () => context.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="relative w-full py-32 z-10"
-    >
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Section Header */}
-        <div ref={titleRef} className="mb-20 text-center">
-          <span className="text-xs font-mono tracking-[0.3em] uppercase text-accent-blue mb-4 block">
-            Selected Work
-          </span>
-          <h2 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
-            Featured <span className="text-gradient">Projects</span>
-          </h2>
-          <p className="text-white/40 max-w-xl mx-auto text-lg">
-            Production-grade AI systems built from the ground up — click any project to explore.
+    <section ref={sectionRef} id="projects" className="relative z-10 w-full py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-4">
+        <div ref={titleRef} className="mb-12 text-center md:mb-16">
+          <span className="mb-4 block font-mono text-xs uppercase tracking-[0.3em] text-accent-blue">A growing body of work</span>
+          <h2 className="mb-5 text-4xl font-bold tracking-tighter md:text-6xl">Projects &amp; <span className="text-gradient">Research</span></h2>
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/45 md:text-lg">
+            A collection of AI products, experiments, developer tools, and apps. Browse all {projects.length} original projects or filter by what you want to explore.
           </p>
+          <a href="https://github.com/Aaravkhanal?tab=repositories" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white">
+            <FaGithub size={15} /> Browse all GitHub repositories <FiArrowUpRight />
+          </a>
         </div>
 
-        {/* Project Cards */}
-        <div className="flex flex-col gap-6">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-              className="group"
-            >
-              {/* Card */}
-              <div
-                className="glass-panel overflow-hidden cursor-pointer transition-all duration-500 hover:border-white/20"
-                onClick={() => setActiveProject(activeProject === project.id ? null : project.id)}
-              >
-                {/* Card Header - Always visible */}
-                <div className="flex flex-col md:flex-row gap-0">
-                  {/* Image */}
-                  <div className="relative w-full md:w-2/5 aspect-video md:aspect-auto md:min-h-[240px] overflow-hidden flex-shrink-0">
-                    <div className={`absolute inset-0 bg-gradient-to-br ${project.accent} opacity-20 group-hover:opacity-30 transition-opacity z-10`} />
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    {/* Tag */}
-                    <span className={`absolute top-4 left-4 z-20 px-3 py-1 text-xs font-semibold rounded-full bg-gradient-to-r ${project.accent} text-white`}>
-                      {project.tag}
-                    </span>
-                  </div>
-
-                  {/* Info */}
-                  <div className="flex-1 p-8 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-start justify-between mb-2">
-                        <div>
-                          <h3 className="text-2xl font-bold tracking-tight group-hover:text-white transition-colors">
-                            {project.title}
-                          </h3>
-                          <p className="text-accent-purple text-sm mt-1 tracking-wide">{project.subtitle}</p>
-                        </div>
-                        <motion.div
-                          animate={{ rotate: activeProject === project.id ? 180 : 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="text-white/30 group-hover:text-white/60 transition-colors mt-1 flex-shrink-0 ml-4"
-                        >
-                          <FaChevronDown size={16} />
-                        </motion.div>
-                      </div>
-
-                      {/* Tech Pills */}
-                      <div className="flex flex-wrap gap-2 mt-4">
-                        {project.tech.slice(0, 5).map((t) => (
-                          <span
-                            key={t}
-                            className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-white/60"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                        {project.tech.length > 5 && (
-                          <span className="px-2 py-1 rounded-md bg-white/5 border border-white/10 text-xs text-white/40">
-                            +{project.tech.length - 5} more
-                          </span>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-4 mt-6">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors border border-white/10 hover:border-white/30 px-4 py-2 rounded-full"
-                      >
-                        <FaGithub size={15} />
-                        Source Code
-                      </a>
-                      <span className="text-white/20 text-sm">
-                        {activeProject === project.id ? "Click to collapse" : "Click to explore →"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expandable Description */}
-                <AnimatePresence>
-                  {activeProject === project.id && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease: "easeInOut" }}
-                      className="overflow-hidden border-t border-white/5"
-                    >
-                      <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Description */}
-                        <div>
-                          <h4 className="text-xs font-mono uppercase tracking-widest text-white/30 mb-4">Overview</h4>
-                          <p className="text-white/60 leading-relaxed text-sm whitespace-pre-line">
-                            {project.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2 mt-6">
-                            {project.tech.map((t) => (
-                              <span
-                                key={t}
-                                className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-accent-cyan"
-                              >
-                                {t}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Highlights */}
-                        <div>
-                          <h4 className="text-xs font-mono uppercase tracking-widest text-white/30 mb-4">Key Highlights</h4>
-                          <ul className="flex flex-col gap-3">
-                            {project.highlights.map((h, i) => (
-                              <li key={i} className="text-sm text-white/60 flex items-start gap-2">
-                                {h}
-                              </li>
-                            ))}
-                          </ul>
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className={`mt-8 inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r ${project.accent} text-white text-sm font-semibold hover:opacity-90 transition-opacity`}
-                          >
-                            <FaGithub size={16} />
-                            View on GitHub
-                          </a>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            </motion.div>
+        <div className="mb-10 flex flex-wrap justify-center gap-2" aria-label="Filter projects by category">
+          {categories.map((item) => (
+            <button key={item} type="button" onClick={() => { setCategory(item); setActiveProject(null); }} aria-pressed={category === item}
+              className={`rounded-full border px-4 py-2 text-sm transition-colors ${category === item ? "border-white/30 bg-white text-black" : "border-white/10 bg-white/[0.03] text-white/55 hover:border-white/25 hover:text-white"}`}>
+              {item === "All work" ? `${item} · ${projects.length}` : `${item} · ${projects.filter((project) => project.category === item).length}`}
+            </button>
           ))}
         </div>
+
+        <motion.div layout className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <AnimatePresence mode="popLayout">
+            {visibleProjects.map((project, index) => {
+              const isOpen = activeProject === project.id;
+              return (
+                <motion.article key={project.id} layout initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }} transition={{ duration: 0.28, delay: Math.min(index * 0.025, 0.2) }}
+                  className={`glass-panel group overflow-hidden transition-colors hover:border-white/20 ${isOpen ? "md:col-span-2" : ""}`}>
+                  <div className="flex h-full flex-col">
+                    <div className={`relative ${project.image ? "aspect-[16/8]" : "h-28"} overflow-hidden bg-gradient-to-br ${project.accent}`}>
+                      {project.image ? <>
+                        <Image src={project.image} alt={`${project.title} project preview`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                        <div className={`absolute inset-0 bg-gradient-to-br ${project.accent} opacity-20 mix-blend-screen`} />
+                      </> : <div className="absolute inset-0 flex items-center justify-between px-7">
+                        <span className="font-mono text-4xl font-semibold tracking-tight text-white/80">{project.title.slice(0, 2).toUpperCase()}</span>
+                        <span className="font-mono text-xs uppercase tracking-[0.28em] text-white/60">{project.category}</span>
+                      </div>}
+                      <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[11px] font-medium text-white/90 backdrop-blur">{project.category}</span>
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-6 md:p-7">
+                      <div className="mb-4 flex items-start justify-between gap-4">
+                        <div>
+                          <h3 className="text-xl font-semibold tracking-tight text-white md:text-2xl">{project.title}</h3>
+                          <p className="mt-1 text-sm text-accent-purple">{project.subtitle}</p>
+                        </div>
+                        <button type="button" aria-expanded={isOpen} aria-label={`${isOpen ? "Collapse" : "Expand"} ${project.title} details`} onClick={() => setActiveProject(isOpen ? null : project.id)} className="mt-1 rounded-full border border-white/10 p-2 text-white/50 transition hover:border-white/30 hover:text-white">
+                          <FiChevronDown className={`transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                        </button>
+                      </div>
+                      <p className="mb-5 text-sm leading-relaxed text-white/55">{project.description}</p>
+                      <div className="mb-6 flex flex-wrap gap-2">
+                        {project.tech.map((item) => <span key={item} className="rounded-md border border-white/10 bg-white/[0.04] px-2.5 py-1 text-xs text-white/60">{item}</span>)}
+                      </div>
+                      <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/[0.07] pt-4">
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-white/55 transition hover:text-white"><FaGithub size={15} /> Source code <FiArrowUpRight /></a>
+                        <button type="button" onClick={() => setActiveProject(isOpen ? null : project.id)} className="text-xs text-white/35 transition hover:text-white/70">{isOpen ? "Hide details" : "Highlights"}</button>
+                      </div>
+                      <AnimatePresence initial={false}>
+                        {isOpen && <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
+                          <div className="mt-5 border-t border-white/[0.07] pt-5">
+                            <h4 className="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-white/35">Highlights</h4>
+                            <ul className="grid gap-2 sm:grid-cols-2">{project.highlights.map((highlight) => <li key={highlight} className="flex gap-2 text-sm text-white/60"><span className="text-accent-cyan">↗</span>{highlight}</li>)}</ul>
+                          </div>
+                        </motion.div>}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+                </motion.article>
+              );
+            })}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

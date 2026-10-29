@@ -71,13 +71,13 @@ export default function Hero() {
           className="flex gap-4"
         >
           <button 
-            onClick={() => window.scrollBy({ top: window.innerHeight, behavior: "smooth" })}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
             className="magnetic px-8 py-3 rounded-full bg-white text-black font-medium hover:bg-white/90 transition-colors"
           >
-            Explore My Work
+            Explore Projects
           </button>
-          <a href="/Aarav_Khanal_Resume.pdf" target="_blank" rel="noopener noreferrer" className="magnetic px-8 py-3 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors">
-            Download Resume
+          <a href="#contact" className="magnetic px-8 py-3 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors">
+            Get in Touch
           </a>
         </motion.div>
       </div>
