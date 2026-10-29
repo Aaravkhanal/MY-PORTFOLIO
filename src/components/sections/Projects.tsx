@@ -79,7 +79,6 @@ const projects: Project[] = [
     highlights: ["Personalized recipe discovery", "Conversational cooking guidance", "Modern full-stack recipe experience"], tech: ["Next.js", "TypeScript", "Prisma", "AI"], github: "https://github.com/Aaravkhanal/Zaika-ai", category: "AI & Products", accent: "from-orange-400 to-amber-600",
   },
   {
-  {
     id: "canary-study", title: "Canary Memorization Study", subtitle: "Measuring memorization and recombination in language models",
     description: "An experimental study of whether exposure to recurring narrative elements changes recall or human-rated recombination in generated stories, and how results vary by model architecture. The repository separates extraction, copying diagnostics, and blinded human judgments rather than treating lexical diversity as creativity.",
     highlights: ["Controlled planted-canary exposure methodology", "Matched model-size and architecture comparisons", "Separate memorization and human-judgment measures"], tech: ["Python", "Language models", "Experimental design"], github: "https://github.com/Aaravkhanal/canary-memorization-study", category: "Research & ML", accent: "from-fuchsia-500 to-purple-600",
@@ -89,7 +88,6 @@ const projects: Project[] = [
     description: "A decoder-only language model trained from random initialization, together with its tokenizer, data pipeline, trainer, evaluation tools, fine-tuning, terminal chat, HTTP API, and web interface. The project runs locally without calling an external model service.",
     highlights: ["End-to-end model training stack", "Local inference and fine-tuning", "Terminal, API, and web chat interfaces"], tech: ["Python", "PyTorch", "Language models"], github: "https://github.com/Aaravkhanal/MY-LLM", category: "Research & ML", accent: "from-violet-500 to-blue-600",
   },
-  {
   {
     id: "codexa", title: "CODEXA", subtitle: "Terminal-native AI coding agent",
     description: "An open-source coding agent built for the command line, with PLAN and BUILD modes, streaming model responses, persistent terminal sessions, local key handling, codebase intelligence, and MCP integrations.",
