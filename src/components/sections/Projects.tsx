@@ -79,10 +79,6 @@ const projects: Project[] = [
     highlights: ["Personalized recipe discovery", "Conversational cooking guidance", "Modern full-stack recipe experience"], tech: ["Next.js", "TypeScript", "Prisma", "AI"], github: "https://github.com/Aaravkhanal/Zaika-ai", category: "AI & Products", accent: "from-orange-400 to-amber-600",
   },
   {
-    id: "emergency-ai", title: "Emergency Accident Detection", subtitle: "Computer vision for faster emergency response",
-    description: "A prototype that detects road accidents in images, estimates severity, and can trigger SMS alerts to an emergency contact. The workflow links visual detection to a severity engine and notification step.",
-    highlights: ["YOLO-based accident detection", "Severity scoring from detection signals", "SMS notification workflow"], tech: ["Python", "Computer vision", "YOLO", "SMS"], github: "https://github.com/Aaravkhanal/emergency-ai-platform", category: "AI & Products", accent: "from-red-500 to-orange-600",
-  },
   {
     id: "canary-study", title: "Canary Memorization Study", subtitle: "Measuring memorization and recombination in language models",
     description: "An experimental study of whether exposure to recurring narrative elements changes recall or human-rated recombination in generated stories, and how results vary by model architecture. The repository separates extraction, copying diagnostics, and blinded human judgments rather than treating lexical diversity as creativity.",
@@ -94,10 +90,6 @@ const projects: Project[] = [
     highlights: ["End-to-end model training stack", "Local inference and fine-tuning", "Terminal, API, and web chat interfaces"], tech: ["Python", "PyTorch", "Language models"], github: "https://github.com/Aaravkhanal/MY-LLM", category: "Research & ML", accent: "from-violet-500 to-blue-600",
   },
   {
-    id: "waste-segregation", title: "Smart Waste Segregation", subtitle: "Transfer learning for waste classification",
-    description: "A computer-vision project that fine-tunes an image classifier to sort waste into categories and support recycling workflows. The repository documents image input, prediction confidence, and a transfer-learning approach.",
-    highlights: ["Transfer learning for image classification", "Waste-category predictions with confidence", "Recycling-focused applied ML"], tech: ["Python", "TensorFlow", "Keras", "Computer vision"], github: "https://github.com/Aaravkhanal/Smart-Waste-Segregation-System", category: "Research & ML", accent: "from-green-500 to-lime-600",
-  },
   {
     id: "codexa", title: "CODEXA", subtitle: "Terminal-native AI coding agent",
     description: "An open-source coding agent built for the command line, with PLAN and BUILD modes, streaming model responses, persistent terminal sessions, local key handling, codebase intelligence, and MCP integrations.",
@@ -108,24 +100,9 @@ const projects: Project[] = [
     description: "An early-stage code-hosting platform with a Next.js interface, Go API, PostgreSQL metadata, and native Git repository storage. Its current implementation supports repository creation, Git pushes, pull requests, diffs, merges, and pulling changes locally.",
     highlights: ["Native Git repository storage", "Pull requests, diffs, and merges", "Development alpha with documented feature boundaries"], tech: ["Go", "Next.js", "PostgreSQL", "Git"], github: "https://github.com/Aaravkhanal/GITOWN", category: "CLI & Developer Tools", accent: "from-slate-400 to-cyan-600",
   },
-  {
-    id: "homebrew-tap", title: "CODEXA Homebrew Tap", subtitle: "macOS package distribution",
-    description: "A Homebrew tap repository containing the CODEXA formula, making the terminal coding agent installable through the familiar macOS package manager.",
-    highlights: ["Homebrew formula for CODEXA", "Separate release and installation workflow"], tech: ["Ruby", "Homebrew", "CLI distribution"], github: "https://github.com/Aaravkhanal/homebrew-tap", category: "CLI & Developer Tools", accent: "from-amber-600 to-orange-500",
-  },
-  {
-    id: "qr-app", title: "QR Scanner & Reader", subtitle: "Ad-free Android scanner and generator",
-    description: "A native Android QR and barcode utility with QR generation, scanning, history, and share or save actions. It uses Jetpack Compose and supports dynamic light and dark themes.",
-    highlights: ["Scan barcodes and QR codes", "Generate QR codes for common contact and network types", "History, sharing, and Android-native UI"], tech: ["Kotlin", "Android", "Jetpack Compose"], github: "https://github.com/Aaravkhanal/qr-app", category: "Apps & Experiments", accent: "from-emerald-500 to-cyan-600",
-  },
-  {
-    id: "bmsce-web", title: "BMSCE Web", subtitle: "Community web project",
-    description: "A collaborative web project in the BMSCE community. The public repository currently provides limited project detail, so this entry links directly to the source for the implementation and context.",
-    highlights: ["Collaborative web development", "Source and project history on GitHub"], tech: ["JavaScript", "Web"], github: "https://github.com/Aaravkhanal/bmsce_web1", category: "Apps & Experiments", accent: "from-blue-500 to-indigo-600",
-  },
 ];
 
-const categories: Array<"All work" | Category> = ["All work", "AI & Products", "Research & ML", "CLI & Developer Tools", "Apps & Experiments"];
+const categories: Array<"All work" | Category> = ["All work", "AI & Products", "Research & ML", "CLI & Developer Tools"];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -153,7 +130,7 @@ export default function Projects() {
           <span className="mb-4 block font-mono text-xs uppercase tracking-[0.3em] text-accent-blue">A growing body of work</span>
           <h2 className="mb-5 text-4xl font-bold tracking-tighter md:text-6xl">Projects &amp; <span className="text-gradient">Research</span></h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/45 md:text-lg">
-            A collection of AI products, experiments, developer tools, and apps. Browse all {projects.length} original projects or filter by what you want to explore.
+            A curated selection of {projects.length} projects across AI products, language-model research, and developer tools.
           </p>
           <a href="https://github.com/Aaravkhanal?tab=repositories" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white">
             <FaGithub size={15} /> Browse all GitHub repositories <FiArrowUpRight />

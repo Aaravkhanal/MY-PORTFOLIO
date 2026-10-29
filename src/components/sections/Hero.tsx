@@ -60,15 +60,15 @@ export default function Hero() {
           transition={{ duration: 1, delay: 1.2 }}
           className="max-w-xl text-white/60 text-lg md:text-xl font-light mb-12"
         >
-          Building Intelligent Systems. <br />
-          Creating the Future with Artificial Intelligence.
+          AI products, research, and developer tools. <br />
+          Designed and built from idea to implementation.
         </motion.p>
         
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 1.5 }}
-          className="flex gap-4"
+          className="flex flex-wrap justify-center gap-3 md:gap-4"
         >
           <button 
             onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
@@ -76,6 +76,9 @@ export default function Hero() {
           >
             Explore Projects
           </button>
+          <a href="/Aarav_Khanal_Resume.pdf" target="_blank" rel="noopener noreferrer" className="magnetic px-8 py-3 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors">
+            View Resume
+          </a>
           <a href="#contact" className="magnetic px-8 py-3 rounded-full border border-white/20 text-white font-medium hover:bg-white/10 transition-colors">
             Get in Touch
           </a>

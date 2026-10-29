@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Image from "next/image";
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
 import { FiExternalLink } from "react-icons/fi";
 
@@ -156,14 +155,15 @@ export default function About() {
         {/* ── Two-column layout ── */}
         <div className="flex flex-col lg:flex-row items-start gap-16 lg:gap-24 mb-20">
 
-          {/* Profile image */}
+          {/* Profile mark */}
           <div ref={imageRef} className="flex-shrink-0 mx-auto lg:mx-0 relative w-72 h-72 md:w-80 md:h-80">
             <div className="absolute inset-0 rounded-full border border-blue-500/20 animate-spin" style={{ animationDuration: "14s" }} />
             <div className="absolute inset-4 rounded-full border border-purple-500/15 animate-spin" style={{ animationDuration: "22s", animationDirection: "reverse" }} />
             <div className="absolute inset-8 rounded-full bg-blue-600/8 blur-2xl" />
             <div className="absolute inset-6 rounded-full overflow-hidden border border-white/10 bg-black/60">
-              <Image src="/profile.png" alt="Aarav Khanal — AI Engineer" fill sizes="320px"
-                className="object-cover transition-transform duration-700 hover:scale-105" priority />
+              <div role="img" aria-label="Aarav Khanal" className="flex h-full w-full items-center justify-center bg-gradient-to-br from-slate-950 via-blue-950 to-violet-950">
+                <span className="bg-gradient-to-br from-white via-cyan-200 to-violet-300 bg-clip-text text-7xl font-semibold tracking-tighter text-transparent">AK</span>
+              </div>
             </div>
             {/* Social icons */}
             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5">
@@ -179,25 +179,15 @@ export default function About() {
           {/* Bio text */}
           <div ref={textRef} className="flex-1 flex flex-col gap-5 max-w-2xl pt-2">
             <p className="text-white/70 text-base md:text-lg leading-[1.85]">
-              I&apos;m <span className="text-white font-semibold">Aarav Khanal</span>, an AI Engineer
-              focused on designing and building intelligent software that bridges machine learning
-              research with scalable, real-world applications. My work spans the complete AI
-              development lifecycle — from data processing and model development to LLM
-              orchestration, backend engineering, cloud deployment, and production infrastructure.
+              I&apos;m <span className="text-white font-semibold">Aarav Khanal</span>, an AI and full-stack
+              developer building practical tools for video understanding, computer vision, and
+              collaborative workflows.
             </p>
             <p className="text-white/70 text-base leading-[1.85]">
-              I specialize in Machine Learning, Deep Learning, Large Language Models, Agentic AI,
-              Multi-Agent Systems, MLOps, and Full-Stack AI Engineering. I enjoy solving complex
-              technical challenges by combining modern AI technologies with strong software
-              engineering principles to create scalable, reliable, and efficient systems.
+              My projects range from training a small language model and studying model
+              memorization to building multi-agent products, developer tools, and end-to-end AI
+              applications. I care about making complex systems useful, understandable, and reliable.
             </p>
-            <p className="text-white/70 text-base leading-[1.85]">
-              I&apos;m passionate about building intelligent products that are not only technically
-              advanced but also thoughtfully designed, performant, and production-ready. I
-              continuously explore emerging AI technologies and strive to engineer solutions that
-              push the boundaries of what&apos;s possible.
-            </p>
-
             {/* CTAs */}
             <div className="flex gap-3 pt-3">
               <a href="/Aarav_Khanal_Resume.pdf" target="_blank" rel="noopener noreferrer"

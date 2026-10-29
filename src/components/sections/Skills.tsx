@@ -71,57 +71,6 @@ const categories = [
   },
 ];
 
-const highlights = [
-  {
-    value: 15,
-    suffix: "+",
-    label: "AI Applications Built",
-    desc: "Designed and developed end-to-end AI systems across multiple domains.",
-    accent: "#3b82f6",
-    icon: "🚀",
-  },
-  {
-    value: 10,
-    suffix: "",
-    label: "Specialized AI Agents",
-    desc: "Autonomous agents collaborating through advanced orchestration workflows.",
-    accent: "#8b5cf6",
-    icon: "🤖",
-  },
-  {
-    value: 4,
-    suffix: "",
-    label: "Production AI Platforms",
-    desc: "Scalable AI platforms built with production-grade architecture.",
-    accent: "#06b6d4",
-    icon: "⚡",
-  },
-  {
-    value: 1,
-    suffix: "M+",
-    label: "Lines of Code",
-    desc: "High-quality code across AI, backend, frontend, and infrastructure.",
-    accent: "#10b981",
-    icon: "💻",
-  },
-  {
-    value: 25,
-    suffix: "+",
-    label: "Technologies Mastered",
-    desc: "Modern AI, cloud, backend, frontend, and MLOps ecosystem.",
-    accent: "#f59e0b",
-    icon: "🧬",
-  },
-  {
-    value: 6,
-    suffix: "",
-    label: "End-to-End ML Pipelines",
-    desc: "Data ingestion, training, evaluation, deployment, and monitoring.",
-    accent: "#ec4899",
-    icon: "🔬",
-  },
-];
-
 const powered = [
   { name: "Python",       color: "#3776AB" },
   { name: "PyTorch",      color: "#EE4C2C" },
@@ -153,26 +102,6 @@ const chipVariants = {
     transition: { duration: 0.3, delay: i * 0.035, ease: "easeOut" as const },
   }),
 };
-
-// ─── Animated Counter ─────────────────────────────────────────────────────────
-function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true });
-  const motionVal = useMotionValue(0);
-  const spring = useSpring(motionVal, { stiffness: 50, damping: 18 });
-
-  useEffect(() => {
-    if (inView) motionVal.set(value);
-  }, [inView, motionVal, value]);
-
-  useEffect(() => {
-    return spring.on("change", (v) => {
-      if (ref.current) ref.current.textContent = Math.round(v) + suffix;
-    });
-  }, [spring, suffix]);
-
-  return <span ref={ref}>0{suffix}</span>;
-}
 
 // ─── Skill Card ───────────────────────────────────────────────────────────────
 function SkillCard({ cat, index }: { cat: typeof categories[0]; index: number }) {
@@ -260,55 +189,6 @@ function SkillCard({ cat, index }: { cat: typeof categories[0]; index: number })
   );
 }
 
-// ─── Highlight Card ───────────────────────────────────────────────────────────
-function HighlightCard({ h, index }: { h: typeof highlights[0]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.07, ease: "easeOut" }}
-      whileHover={{ y: -8, transition: { duration: 0.2 } }}
-      className="relative rounded-2xl p-6 overflow-hidden group cursor-default"
-    >
-      {/* Glass */}
-      <div className="absolute inset-0 rounded-2xl"
-        style={{ background: "rgba(255,255,255,0.028)", backdropFilter: "blur(18px)", border: "1px solid rgba(255,255,255,0.07)" }} />
-
-      {/* Animated border on hover */}
-      <motion.div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 pointer-events-none"
-        style={{ boxShadow: `0 0 40px ${h.accent}20, inset 0 0 40px ${h.accent}08`, transition: "opacity 0.4s" }} />
-
-      {/* Radial glow behind */}
-      <div className="absolute -inset-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-        style={{ background: `radial-gradient(circle at 50% 50%, ${h.accent}10, transparent 70%)` }} />
-
-      {/* Accent top */}
-      <div className="absolute top-0 left-0 right-0 h-[2px] rounded-t-2xl"
-        style={{ background: `linear-gradient(90deg, ${h.accent}, ${h.accent}15)` }} />
-
-      <div className="relative">
-        {/* Icon */}
-        <motion.div
-          className="text-2xl mb-4"
-          whileHover={{ scale: 1.2, rotate: 10 }}
-          transition={{ duration: 0.2 }}
-        >
-          {h.icon}
-        </motion.div>
-
-        {/* Counter */}
-        <div className="text-4xl md:text-5xl font-bold mb-2" style={{ color: h.accent }}>
-          <AnimatedCounter value={h.value} suffix={h.suffix} />
-        </div>
-
-        <h4 className="text-sm font-bold text-white mb-2 tracking-wide">{h.label}</h4>
-        <p className="text-xs text-white/35 leading-relaxed">{h.desc}</p>
-      </div>
-    </motion.div>
-  );
-}
-
 // ─── Powered By Logo ──────────────────────────────────────────────────────────
 function PoweredLogo({ tech }: { tech: typeof powered[0] }) {
   const [hovered, setHovered] = useState(false);
@@ -389,8 +269,7 @@ export default function Skills() {
             Tech <span className="text-gradient">Arsenal</span>
           </h2>
           <p className="text-white/35 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
-            A battle-tested stack spanning the full AI engineering lifecycle —
-            from research to production-grade deployment.
+            Technologies I use across AI research, developer tools, and product engineering.
           </p>
         </div>
 
@@ -398,34 +277,6 @@ export default function Skills() {
           {categories.map((cat, i) => (
             <SkillCard key={cat.title} cat={cat} index={i} />
           ))}
-        </div>
-
-        {/* ══════════════════════════════════════════════
-            ENGINEERING HIGHLIGHTS
-        ══════════════════════════════════════════════ */}
-        <div className="mb-32">
-          <div className="text-center mb-16">
-            <motion.span
-              initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-              viewport={{ once: true }} transition={{ duration: 0.5 }}
-              className="inline-block text-xs font-mono tracking-[0.35em] uppercase text-blue-400 mb-4 opacity-80"
-            >
-              Engineering Impact
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-3xl md:text-5xl font-bold tracking-tighter"
-            >
-              By the <span className="text-gradient">Numbers</span>
-            </motion.h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {highlights.map((h, i) => (
-              <HighlightCard key={i} h={h} index={i} />
-            ))}
-          </div>
         </div>
 
         {/* ══════════════════════════════════════════════

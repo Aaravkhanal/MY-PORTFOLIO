@@ -289,7 +289,7 @@ export default function Contact() {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/20 text-sm">
-            © 2025 Aarav Khanal. Built with Next.js, Three.js & passion.
+            © {new Date().getFullYear()} Aarav Khanal. Built with Next.js, Three.js & passion.
           </p>
           <p className="text-white/20 text-sm font-mono">
             khanalaarav2063@gmail.com
