@@ -133,9 +133,30 @@ const projects = ([
     description: "An early-stage code-hosting platform with a Next.js interface, Go API, PostgreSQL metadata, and native Git repository storage. Its current implementation supports repository creation, Git pushes, pull requests, diffs, merges, and pulling changes locally.",
     highlights: ["Native Git repository storage", "Pull requests, diffs, and merges", "Development alpha with documented feature boundaries"], tech: ["Go", "Next.js", "PostgreSQL", "Git"], github: "https://github.com/Aaravkhanal/GITOWN", image: "/projects/gitown-white.jpg", category: "CLI & Developer Tools", accent: "from-slate-400 to-cyan-600",
   },
+  {
+    id: "rageval", title: "RAGeval", subtitle: "Claim-level evaluation for retrieval-augmented answers",
+    rank: 5.5,
+    architecture: [{ label: "Sources and questions", detail: "Prepare benchmark documents and answerable questions" }, { label: "Retrieval", detail: "Compare BM25, dense, hybrid, and reranked evidence" }, { label: "Claim audit", detail: "Break answers into claims and check evidence support" }, { label: "Metrics", detail: "Report citation support, answer quality, and failure modes separately" }],
+    description: "A research benchmark and software toolkit for checking whether RAG answers are supported by retrieved evidence. It combines retrieval baselines, atomic claim verification, citation metrics, and diagnostic ablations. Published results are preliminary, with human agreement analysis still pending.",
+    highlights: ["Claim-level evidence and citation checks", "Retrieval ablations and failure taxonomy", "CLI, API, and reproducible benchmark runs"], tech: ["Python", "RAG", "NLI", "FastAPI"], github: "https://github.com/Aaravkhanal/RAGEVAL", image: "/projects/rageval-white.jpg", category: "Research & ML", accent: "from-blue-500 to-violet-600",
+  },
+  {
+    id: "qr-app", title: "QR Scanner & Reader", subtitle: "Private, offline Android utility",
+    rank: 12.5,
+    architecture: [{ label: "Camera or gallery", detail: "Read codes from a live scan or saved image" }, { label: "QR engine", detail: "Decode and generate common QR payload types" }, { label: "Local actions", detail: "Open links, confirm Wi-Fi setup, or share a generated code" }, { label: "Private history", detail: "Save eligible scans locally while excluding sensitive payloads" }],
+    description: "A native Android QR and barcode app built with Jetpack Compose. It scans and creates codes, works offline, supports dark mode, and keeps history on device with safeguards for sensitive QR content. The repository includes current emulator screenshots and automated build checks.",
+    highlights: ["Offline scanning and code generation", "Privacy-aware local history", "Native Compose interface with emulator screenshots"], tech: ["Kotlin", "Jetpack Compose", "Room", "ZXing"], github: "https://github.com/Aaravkhanal/qr-app", image: "/projects/qr-app-white.jpg", category: "Apps & Experiments", accent: "from-cyan-500 to-blue-600",
+  },
+  {
+    id: "smart-waste", title: "Smart Waste Segregation", subtitle: "Transfer learning for recyclable material classification",
+    rank: 13.5,
+    architecture: [{ label: "Waste images", detail: "Load labeled material photos for training or prediction" }, { label: "Transfer learning", detail: "Fine-tune a MobileNetV2 image backbone" }, { label: "Classifier", detail: "Predict the material category from an image" }, { label: "Result", detail: "Return a class and confidence score for sorting support" }],
+    description: "A computer-vision classifier for common waste categories. Its training code uses image augmentation and MobileNetV2 transfer learning; a prediction script applies the trained model to new photos. It is a software classification prototype for recycling workflows.",
+    highlights: ["MobileNetV2 fine-tuning", "Image augmentation and validation", "Material predictions with confidence scores"], tech: ["Python", "TensorFlow", "Keras", "Computer Vision"], github: "https://github.com/Aaravkhanal/Smart-Waste-Segregation-System", image: "/projects/smart-waste-white.jpg", category: "Research & ML", accent: "from-emerald-500 to-teal-600",
+  },
 ] satisfies Project[]).sort((a, b) => a.rank - b.rank);
 
-const categories: Array<"All work" | Category> = ["All work", "AI & Products", "Research & ML", "CLI & Developer Tools"];
+const categories: Array<"All work" | Category> = ["All work", "AI & Products", "Research & ML", "CLI & Developer Tools", "Apps & Experiments"];
 
 export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -163,7 +184,7 @@ export default function Projects() {
           <span className="mb-4 block font-mono text-xs uppercase tracking-[0.3em] text-accent-blue">A growing body of work</span>
           <h2 className="mb-5 text-4xl font-bold tracking-tighter md:text-6xl">Projects &amp; <span className="text-gradient">Research</span></h2>
           <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/45 md:text-lg">
-            A curated selection of {projects.length} projects across AI products, language-model research, and developer tools.
+            A curated selection of {projects.length} projects across AI products, research, developer tools, and apps.
           </p>
           <a href="https://github.com/Aaravkhanal?tab=repositories" target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white">
             <FaGithub size={15} /> Browse all GitHub repositories <FiArrowUpRight />
